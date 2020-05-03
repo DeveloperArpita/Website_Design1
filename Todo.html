@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Practical JavaScript by Arpita </title>
+  </head>
+  <body>
+    <h1>How Important is Mental Health During Lockdown </h1>
+    <p><h3>As many of us are being told to hunker down in our apartments and houses, and limit trips outside and social contact, things are feeling pretty “real” at this point. Aside from the general worry people may have about their physical health as they digest the news from around the world and here at home, there’s the larger toll this is taking on our collective mental health. So Mental Health Do Matters a Lot</h3></p>
+    <p><h3>Not only is the threat of a new virus scary, many people are also facing stressful life challenges. Lots of people who were working in pubs and restaurants or who are self-employed have lost jobs or had their incomes cut. Social distancing and self-isolating mean avoiding seeing friends and family and many people are worried about vulnerable loved ones. And of course, for the 1.5 million people recommended to stay indoors entirely for three months as part of the shielding initiative, restrictions are even more extreme.</h3></p>
+    <h1>YOU MUST FOLLOW A ROUTINE EVERYDAY</h1>
+    <img src="C:\Users\Dell\Desktop\happy.jpg">
+    <p><h3>Exercise if you can
+      Getting moving is easier said than done when you feel low or anxious, but it can significantly boost your mood.
+      
+     "If you are well enough, exercise is really good for mental as well as physical well-being. Find music that helps boost your mood. If you are able, get into your garden and get daily doses of sunshine," Roberts says,
+      
+      <B>Exercising at home</B> can be simple and there are options for most ages and abilities, including yoga videos or cardio workouts.
+      
+      Under the new government regulations, you are allowed to leave your house for one form of exercise (such as running, walking or cycling) per day but in addition, you're still able to use your garden as long as you don't come within two metres of anyone you don't live with. The only exception is people who are being 'shielded' because they are at the highest risk of severe complications. They should not leave their houses at all.
+      
+      <B>Set up buddy groups</B>
+      Roberts advises setting up a "buddy group" with family or friends and regularly checking in with people, either online or by phone. That way, you can offer support to anyone struggling or reach out to others if you need to.
+      
+      Even just sending daily updates can help us feel more connected and less alone during these difficult times.
+      
+     <B> Distract yourself</B>
+      Writing down your thoughts and feelings can help offload any worries and fears you may have. It's also important to try to keep busy, whether that means going for a daily walk or learning a new skill. There are still plenty of activities you can engage with at home, including crafts, painting, reading, cooking and baking.
+      
+      "If you feel low, keeping a journal can be a helpful way to unload emotions. Take things a day at a time - planning may have once been essential but projection can evoke fear and anxiety. Go with the flow," Roberts says. "If you feel well enough, maybe look at some free online courses offered by the Open University."
+      
+      Although we want to know what's going on, it can help to turn off the news from time to time too.
+      
+      <B>Be kind to yourself</B>
+      If you don't feel up to doing anything, though, that's fine too. It's important to be kind to yourself and recognise when you need a break.
+      
+      "Take care of yourself, focus on your recovery, and you'll get through this," Roberts says. "Tell yourself 'what I am doing is enough'. Be good to yourself.
+      
+      "Try to relax and focus on positive things, knowing that every effort is being made globally to bring this situation to a close, but it will take time."</p>
+    <h2>What's your Daily Routine now?</h2>
+    <p><h2>Are you addicted to your phone....? Stop Then Follow the Steps That Are Stated Above</h2></p>
+    <h2>Let's talk of Lockdown Day's</h2>
+    <p>You can add your todoList in the add Section and change them at your need or delete them too.</p>
+    <img src="C:\Users\Dell\Desktop\tulip.jpg">
+    <div>
+      <button onclick="handlers.toggleAll()">Toggle All</button>
+    </div>
+
+    <div>
+      <button onclick="handlers.addTodo()">Add</button>
+      <input id="addTodoTextInput" type="text">
+    </div>
+
+    <div>
+      <button onclick="handlers.changeTodo()">Change Todo</button>
+      <input id="changeTodoPositionInput" type="number">
+      <input id="changeTodoTextInput" type="text">
+    </div>
+
+    <div>
+      <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+      <input id="toggleCompletedPositionInput" type="number">
+    </div>
+
+    <ul>
+    </ul>
+
+    <script>
+
+      var todoList = {
+        todos: [],
+        addTodo: function(todoText) {
+          this.todos.push({
+            todoText: todoText,
+            completed: false
+          });
+        },
+        changeTodo: function(position, todoText) {
+          this.todos[position].todoText = todoText;
+        },
+        deleteTodo: function(position)  {
+          this.todos.splice(position, 1);
+        },
+        toggleCompleted: function(position) {
+          var todo = this.todos[position];
+          todo.completed = !todo.completed;
+        },
+        toggleAll: function() {
+          var totalTodos = this.todos.length;
+          var completedTodos = 0;
+          
+          // Get number of completed todos.
+         
+          this.todos.forEach(function(todo) {
+            if (todo.completed === true) {
+              completedTodos++;
+            }
+          });
+          
+           this.todos.forEach(function(todo) {
+             // case 1: If everything's true, make everything false.
+             if (completedTodos === totalTodos) {
+               todo.completed = false;
+             // case 2: otherwise, make everything true.
+             } else {
+               todo.completed = true;
+             }
+           });
+        }
+      };
+      
+      var handlers = {
+        addTodo: function() {
+          var addTodoTextInput = document.getElementById('addTodoTextInput');
+          todoList.addTodo(addTodoTextInput.value);
+          addTodoTextInput.value = '';
+          view.displayTodos();
+        },
+        changeTodo: function()  {
+          var changeTodoPositionInput = document.getElementById('changeTodoPositionInput');
+          var changeTodoTextInput = document.getElementById('changeTodoTextInput');
+          todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
+          changeTodoPositionInput.value = '';
+          changeTodoTextInput.value = '';
+          view.displayTodos();
+        },
+        deleteTodo: function(position) {
+          todoList.deleteTodo(position);
+          view.displayTodos();
+        },
+        toggleCompleted: function() {
+          var toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
+          todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
+          toggleCompletedPositionInput.value = '';
+          view.displayTodos();
+        },
+        toggleAll: function() {
+          todoList.toggleAll();
+          view.displayTodos();
+        }
+      };
+
+      var view = {
+        displayTodos: function() {
+          var todosUl = document.querySelector('ul');
+          todosUl.innerHTML = '';
+          
+          todoList.todos.forEach(function(todo, position) {
+            var todoLi = document.createElement('li');
+            var todoTextWithCompletion = '';
+
+            if (todo.completed === true)  {
+              todoTextWithCompletion = '(x) ' + todo.todoText;
+            } else {
+              todoTextWithCompletion = '( ) ' + todo.todoText;
+            }
+
+            todoLi.id = position;
+            todoLi.textContent = todoTextWithCompletion;
+            todoLi.appendChild(this.createDeleteButton());
+            todosUl.appendChild(todoLi);
+          }, this);
+        },
+        createDeleteButton: function() {
+          var deleteButton = document.createElement('button');
+          deleteButton.textContent = 'Delete';
+          deleteButton.className = 'deleteButton'
+          return deleteButton;
+        },
+        setUpEventListeners: function() {
+          var todosUl = document.querySelector('ul');
+
+          todosUl.addEventListener('click', function(event) {
+            var elementClicked = event.target;
+            if (elementClicked.className === 'deleteButton') {
+              handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
+            }
+          });
+        }
+      }; 
+      view.setUpEventListeners();
+    </script>
+  </body>
+</html>
